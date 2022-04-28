@@ -3,7 +3,7 @@ const CHOICE_ARRAY = ["rock", "paper", "scissors"];
 // let playerSelection = prompt("take your pick.");
 let playerWins = 0;
 let computerWins = 0;
-let gameTies = 0;
+let tieGames = 0;
 
 function randomPlay(array) {
   return array[Math.floor(Math.random() * array.length)];
@@ -16,27 +16,28 @@ function playRound(playerSelection, computerSelection) {
     (playerSelection === "scissors" && computerSelection === "paper")
   ) {
     playerWins++;
-    return `you win. ${playerSelection} beats ${computerSelection}.`;
   } else if (
     (playerSelection === "rock" && computerSelection === "paper") ||
     (playerSelection === "paper" && computerSelection === "scissors") ||
     (playerSelection === "scissors" && computerSelection === "rock")
   ) {
     computerWins++;
-    return `you lose. ${computerSelection} beats ${playerSelection}.`;
   } else {
-    gameTies++;
-    return `tie game. you have both chosen ${computerSelection}`;
+    tieGames++;
   }
 }
 
 function game() {
-  for (let i = 0; i < 5; i++) {
+  while (true) {
     let playerChoice = randomPlay(CHOICE_ARRAY);
     let computerChoice = randomPlay(CHOICE_ARRAY);
 
-    if (playerChoice === computerChoice) {
-      continue;
+    if (playerWins === 5) {
+      console.log("the player wins!");
+      break;
+    } else if (computerWins === 5) {
+      console.log("the computer wins!");
+      break;
     } else {
       playRound(playerChoice, computerChoice);
     }
@@ -44,7 +45,7 @@ function game() {
 
   console.log(`player wins: ${playerWins}`);
   console.log(`computer wins: ${computerWins}`);
-  console.log(`game ties: ${gameTies}`);
+  console.log(`tie games: ${tieGames}`);
 }
 
 game();
